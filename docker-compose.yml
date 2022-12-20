@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  text_inverter:
+    build:
+      context: .
+    networks:
+      - interservices
+    ports:
+      - 8000:8000
+    environment:
+      - service_name=INVERTER
+    volumes:
+      - ./my_data:/data
+  
+
+  text_server:
+    container_name: text_server
+    build:
+      context: .
+    networks:
+      - interservices
+    environment:
+      - service_name=SERVER
+    ports:
+      - 8001:8000
+    volumes:
+      - voldata:/data
+
+volumes:
+  voldata:
+
+networks:
+  interservices:
